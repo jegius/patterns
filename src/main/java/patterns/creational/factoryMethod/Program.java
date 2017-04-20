@@ -1,7 +1,7 @@
-package patterns.creational.FactoryMethod;
-import patterns.creational.FactoryMethod.factories.CppDeveloperFactory;
-import patterns.creational.FactoryMethod.factories.JavaDeveloperFactory;
-import patterns.creational.FactoryMethod.factories.PhpDeveloperFactory;
+package patterns.creational.factoryMethod;
+import patterns.creational.factoryMethod.factories.CppDeveloperFactory;
+import patterns.creational.factoryMethod.factories.JavaDeveloperFactory;
+import patterns.creational.factoryMethod.factories.PhpDeveloperFactory;
 
 import java.util.Scanner;
 

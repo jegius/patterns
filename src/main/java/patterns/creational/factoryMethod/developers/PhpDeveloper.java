@@ -1,6 +1,6 @@
-package patterns.creational.FactoryMethod.developers;
+package patterns.creational.factoryMethod.developers;
 
-import patterns.creational.FactoryMethod.Developer;
+import patterns.creational.factoryMethod.Developer;
 
 public class PhpDeveloper implements Developer {
     public void writeCode() {
