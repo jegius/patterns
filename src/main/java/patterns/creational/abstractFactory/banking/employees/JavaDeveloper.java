@@ -1,4 +1,4 @@
-package patterns.creational.abstractFactory.banking;
+package patterns.creational.abstractFactory.banking.employees;
 
 import patterns.creational.abstractFactory.Developer;
 
