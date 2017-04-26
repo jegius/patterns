@@ -5,7 +5,7 @@ public class Project implements Copyble {
     private String projectName;
     private String sourceCode;
 
-    public Project(int id, String projectName, String sourceCode) {
+    Project(int id, String projectName, String sourceCode) {
         this.id = id;
         this.projectName = projectName;
         this.sourceCode = sourceCode;
@@ -36,8 +36,8 @@ public class Project implements Copyble {
     }
 
     public Object copy() {
-        Project copy = new Project(id, projectName, sourceCode);
-        return copy;
+
+        return new Project(id, projectName, sourceCode);
     }
 
     @Override
