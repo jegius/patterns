@@ -1,10 +1,9 @@
 package java8.streams;
 
-import java.util.Arrays;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -80,6 +79,98 @@ public class Main {
                         (name1, name2) -> name1 + "; " + name2));
 
         System.out.println(personeMap);
+
+        getSeparator();
+        System.out.println("CUSTOM COLLECTOR");
+        getSeparator();
+
+        Collector<Persone, StringJoiner, String> personeStringJoinerStringCollector =
+                Collector.of(
+                        () -> new StringJoiner(" | "), //supplier
+                        (j, p) -> j.add(p.getName().toUpperCase()), //accumulator
+                        StringJoiner::merge,                        //combiner
+                        StringJoiner::toString);                    //finisher
+
+        String names = persones
+                .stream()
+                .collect(personeStringJoinerStringCollector);
+
+        System.out.println(names);
+
+        getSeparator();
+        System.out.println("FLAT MAP");
+        getSeparator();
+
+
+        List<Foo> foos = new ArrayList<>();
+
+        IntStream.range(1, 4)
+                .forEach(i -> foos.add(new Foo("Foo" + i)));
+
+        foos.forEach(foo -> IntStream
+                .range(1, 4)
+                .forEach(i -> foo.bars.add(new Bar("Bar" + i + " <- " + foo.getName()))));
+
+
+        foos.stream()
+                .flatMap(foo -> foo.bars.stream())
+                .forEach(bar -> System.out.println(bar.getName()));
+
+        getSeparator();
+        System.out.println("SHOW THE INTERNAL OBJECT WITH THE HELP OF STREAM API");
+        getSeparator();
+
+        Optional.of(new Outer())
+                .flatMap(outer -> Optional.ofNullable(outer.nested))
+                .flatMap(nested -> Optional.ofNullable(nested.inner))
+                .flatMap(inner -> Optional.ofNullable(inner.foor))
+                .ifPresent(System.out::println);
+
+
+        getSeparator();
+        System.out.println("REDUCE");
+        getSeparator();
+
+
+        persones.stream()
+                .reduce((p1, p2) -> p1.getAge() > p2.getAge() ? p1 : p2)
+                .ifPresent(System.out::println);
+
+        getSeparator();
+        System.out.println("REDUCE [SECOND]");
+        getSeparator();
+
+        Persone result = persones.stream()
+                .reduce(new Persone("", 0), (p1, p2) -> {
+                    p1.setAge(p1.getAge() + p2.getAge());
+                    p1.setName(p1.getName() + p2.getName());
+                    return p1;
+                });
+        System.out.println(result.getName() + " " + result.getAge());
+
+        getSeparator();
+        System.out.println("REDUCE [THIRD]");
+        getSeparator();
+
+        Integer ageSum = persones.stream()
+                .reduce(0, (sum, p) -> sum + p.getAge(), (sum1, sum2) -> sum1 + sum2);
+
+        System.out.println(ageSum);
+
+        getSeparator();
+        System.out.println("REDUCE [FOURTH]");
+        getSeparator();
+
+        Integer ageSums = persones.stream()
+                .parallel()
+                .reduce(0, (sum, p) -> {
+                            System.out.printf("accumulator: sum=%s; person=%s\n", sum, p.getName());
+                            return sum += p.getAge();
+                        },
+                        (sum1, sum2) -> {
+                            System.out.printf("combiner: sum1=%s; sum2=%s\n", sum1, sum2);
+                            return sum1 + sum2;
+                        });
     }
 
     private static void getSeparator() {
