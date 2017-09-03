@@ -8,7 +8,7 @@ public class Developer {
         if (bugTracker.isActiveSprint()){
             System.out.println("Developer is solving problems...");
         } else {
-            System.out.println("Developer is reading habrahabr...");
+            System.out.println("Developer is Reading habrahabr...");
         }
     }
 }

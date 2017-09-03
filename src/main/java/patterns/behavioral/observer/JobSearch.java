@@ -14,5 +14,7 @@ public class JobSearch {
         jobSite.addObserver(secondSubscriber);
 
         jobSite.addVacacies("Third Java Position");
+
+        jobSite.removeVacancy("First Java Position");
     }
 }
