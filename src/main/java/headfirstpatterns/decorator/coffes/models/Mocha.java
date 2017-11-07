@@ -1,4 +1,4 @@
-package headfirstpatterns.decorator.models;
+package headfirstpatterns.decorator.coffes.models;
 
 public class Mocha extends CondimentDecorator{
     private Beverage beverage;

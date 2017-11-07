@@ -1,6 +1,6 @@
-package headfirstpatterns.decorator;
+package headfirstpatterns.decorator.coffes;
 
-import headfirstpatterns.decorator.models.*;
+import headfirstpatterns.decorator.coffes.models.*;
 
 public class DecoratorRunner {
     public static void main(String[] args) {
